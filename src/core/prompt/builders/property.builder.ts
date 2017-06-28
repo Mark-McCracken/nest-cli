@@ -1,4 +1,4 @@
-import {Property} from '../../common/prompt/interfaces/property.interface';
+import {Property} from '../../../common/prompt/interfaces/property.interface';
 
 export class PropertyBuilder {
   private _message: string;

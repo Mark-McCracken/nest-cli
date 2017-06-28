@@ -1,6 +1,6 @@
 import {SchemaBuilder} from '../schema.builder';
 import {expect} from 'chai';
-import {Property} from '../../../common/prompt/interfaces/property.interface';
+import {Property} from '../../../../common/prompt/interfaces/property.interface';
 
 describe('SchemaBuilder', () => {
   let builder: SchemaBuilder;
