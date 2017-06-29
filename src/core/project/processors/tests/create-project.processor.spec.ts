@@ -49,15 +49,14 @@ describe('CreateProjectProcessor', () => {
             properties: {
               description: {
                 message: 'description',
-                pattern: /[a-zA-Z0-9 ]/,
+                type: 'string',
                 required: false,
-                hidden: false
               },
               version: {
                 message: 'version',
+                type: 'string',
                 pattern: /[v0-9.]/,
                 required: true,
-                hidden: false
               }
             }
           });

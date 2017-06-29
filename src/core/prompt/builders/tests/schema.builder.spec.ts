@@ -9,7 +9,8 @@ describe('SchemaBuilder', () => {
 
   const property: Property = {
     message: 'message',
-    pattern: /message/
+    type: 'string',
+    required: false
   };
 
   describe('#addProperty()', () => {

@@ -12,6 +12,7 @@ import {Repository} from '../../../common/project/interfaces/repository.interfac
 import {Schema} from '../../../common/prompt/interfaces/schema.interface';
 import {SchemaBuilder} from '../../prompt/builders/schema.builder';
 import {PropertyBuilder} from '../../prompt/builders/property.builder';
+import {PropertyType} from '../../../common/prompt/enums/property-type.enum';
 
 export class CreateProjectProcessor implements Processor {
   private _logger: Logger = LoggerService.getLogger();
@@ -35,13 +36,14 @@ export class CreateProjectProcessor implements Processor {
       .addProperty('description',
         new PropertyBuilder()
           .addMessage('description')
-          .addPattern(/[a-zA-Z0-9 ]/)
+          .addType(PropertyType.STRING)
           .addRequired(false)
           .build()
       )
       .addProperty('version',
         new PropertyBuilder()
           .addMessage('version')
+          .addType(PropertyType.STRING)
           .addPattern(/[v0-9.]/)
           .addRequired(true)
           .build()

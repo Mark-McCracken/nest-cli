@@ -1,6 +1,8 @@
 export interface Property {
   message: string
-  pattern: RegExp
-  required?: boolean
+  type: string
+  required: boolean
+  description?: string
+  pattern?: RegExp
   hidden?: boolean
 }

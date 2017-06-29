@@ -11,7 +11,8 @@ describe('NestCliPrompt', () => {
     properties: {
       name: {
         message: 'message',
-        pattern: /message/,
+        type: 'string',
+        required: false
       }
     }
   };
