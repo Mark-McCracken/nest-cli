@@ -9,17 +9,6 @@ import {FileSystemUtils} from '../../../utils/file-system.utils';
 import {NestCliPrompt} from '../../../prompt/nest-cli.prompt';
 
 describe('CreateProjectProcessor', () => {
-  const project: Project = {
-    destination: {
-      name: 'name',
-      path: 'name'
-    },
-    source: {
-      type: SourceType.GIT,
-      value: 'value'
-    }
-  };
-
   let sandbox: sinon.SinonSandbox;
   beforeEach(() => sandbox = sinon.sandbox.create());
   afterEach(() => sandbox.restore());
@@ -39,13 +28,39 @@ describe('CreateProjectProcessor', () => {
   });
 
   let processor: Processor;
+  const project: Project = {
+    destination: {
+      name: 'name',
+      path: 'name'
+    },
+    source: {
+      type: SourceType.GIT,
+      value: 'value'
+    }
+  };
   beforeEach(() => processor = new CreateProjectProcessor(project));
 
   describe('#process()', () => {
-    it('should use the prompt to configure the project', () => {
+    it('should use the prompt to get project configuration from user inputs', () => {
       return processor.process()
         .then(() => {
           sinon.assert.calledOnce(startStub);
+          sinon.assert.calledWith(startStub, {
+            properties: {
+              description: {
+                message: 'description',
+                pattern: /[a-zA-Z0-9 ]/,
+                required: false,
+                hidden: false
+              },
+              version: {
+                message: 'version',
+                pattern: /[v0-9.]/,
+                required: true,
+                hidden: false
+              }
+            }
+          });
         });
     });
 

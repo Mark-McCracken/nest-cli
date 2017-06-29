@@ -25,13 +25,6 @@ describe('CreateCommandHandler', () => {
   });
 
   describe('#execute()', () => {
-    it.skip('should clone the project repository to destination', () => {
-      return handler.execute({ name: 'application', destination: 'path/to/application' }, {}, console)
-        .then(() => {
-          sinon.assert.calledOnce(cloneStub);
-        });
-    });
-
     it('should process with the create project processor', () => {
       return handler.execute({ name: 'application', destination: 'path/to/application' }, {}, console)
         .then(() => {

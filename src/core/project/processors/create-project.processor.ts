@@ -8,16 +8,44 @@ import * as path from 'path';
 import {FileSystemUtils} from '../../utils/file-system.utils';
 import {Prompt} from '../../../common/prompt/interfaces/prompt.interface';
 import {NestCliPrompt} from '../../prompt/nest-cli.prompt';
+import {Repository} from '../../../common/project/interfaces/repository.interface';
+import {Schema} from '../../../common/prompt/interfaces/schema.interface';
+import {SchemaBuilder} from '../../prompt/builders/schema.builder';
+import {PropertyBuilder} from '../../prompt/builders/property.builder';
 
 export class CreateProjectProcessor implements Processor {
   private _logger: Logger = LoggerService.getLogger();
+  private _prompt: Prompt;
+  private _repository: Repository;
 
-  constructor(private _project: Project) {}
+  constructor(private _project: Project) {
+    this._prompt = new NestCliPrompt();
+    this._repository = new GitRepository(this._project.source.value, this._project.destination.path);
+  }
 
   public process(): Promise<void> {
-    return new NestCliPrompt().start(null)
-      .then(() => new GitRepository(this._project.source.value, this._project.destination.path).clone())
+    return this._prompt.start(this.buildSchema())
+      .then(() => this._repository.clone())
       .then(() => FileSystemUtils.readdir(path.join(process.cwd(), this._project.destination.path)))
       .then(files => files.forEach(file => this._logger.info(ColorService.green('create'), file)));
+  }
+
+  private buildSchema(): Schema {
+    return new SchemaBuilder()
+      .addProperty('description',
+        new PropertyBuilder()
+          .addMessage('description')
+          .addPattern(/[a-zA-Z0-9 ]/)
+          .addRequired(false)
+          .build()
+      )
+      .addProperty('version',
+        new PropertyBuilder()
+          .addMessage('version')
+          .addPattern(/[v0-9.]/)
+          .addRequired(true)
+          .build()
+      )
+      .build();
   }
 }
