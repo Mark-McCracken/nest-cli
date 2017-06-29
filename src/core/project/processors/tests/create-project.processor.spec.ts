@@ -9,7 +9,10 @@ import {FileSystemUtils} from '../../../utils/file-system.utils';
 
 describe('CreateProjectProcessor', () => {
   const project: Project = {
-    name: 'name',
+    destination: {
+      name: 'name',
+      path: 'name'
+    },
     source: {
       type: SourceType.GIT,
       value: 'value'

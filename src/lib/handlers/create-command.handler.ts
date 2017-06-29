@@ -8,6 +8,8 @@ import {Logger} from '../../common/logger/interfaces/logger.interface';
 import {Repository} from '../../common/project/interfaces/repository.interface';
 import {GitRepository} from '../../core/project/repositories/git.repository';
 import {LoggerService} from '../../core/logger/logger.service';
+import {CreateProjectProcessor} from '../../core/project/processors/create-project.processor';
+import {SourceType} from '../../common/project/enums/source.type.enum';
 
 export interface CreateCommandArguments extends CommandArguments {
   name: string
@@ -29,9 +31,15 @@ export class CreateCommandHandler implements CommandHandler {
     const name: string = args.name;
     const destination: string = args.destination || name;
     const repository: string = options.repository || CreateCommandHandler.DEFAULT_REPOSITORY;
-    return new GitRepository(repository, destination)
-      .clone()
-        .then(() => FileSystemUtils.readdir(path.join(process.cwd(), destination)))
-        .then(files => files.forEach(file => logger.info(ColorService.green('create'), file)))
+    return new CreateProjectProcessor({
+      destination: {
+        name: name,
+        path: destination
+      },
+      source: {
+        type: SourceType.GIT,
+        value: repository
+      }
+    }).process();
   }
 }

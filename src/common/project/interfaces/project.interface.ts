@@ -1,6 +1,7 @@
 import {Source} from './source.interface';
+import {Destination} from './destination.interface';
 
 export interface Project {
-  name: string
   source: Source
+  destination: Destination
 }

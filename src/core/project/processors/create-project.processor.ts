@@ -13,9 +13,9 @@ export class CreateProjectProcessor implements Processor {
   constructor(private _project: Project) {}
 
   public process(): Promise<void> {
-    return new GitRepository(this._project.source.value, this._project.name)
+    return new GitRepository(this._project.source.value, this._project.destination.path)
       .clone()
-      .then(() => FileSystemUtils.readdir(path.join(process.cwd(), this._project.name)))
+      .then(() => FileSystemUtils.readdir(path.join(process.cwd(), this._project.destination.path)))
       .then(files => files.forEach(file => this._logger.info(ColorService.green('create'), file)));
   }
 }
