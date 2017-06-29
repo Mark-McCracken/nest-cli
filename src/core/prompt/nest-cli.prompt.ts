@@ -4,12 +4,11 @@ import * as promptjs from 'prompt';
 import {Result} from '../../common/prompt/interfaces/result.interface';
 
 export class NestCliPrompt implements Prompt {
-  constructor(private _schema: Schema) {}
 
-  public start(): Promise<Result> {
+  public start(schema: Schema): Promise<Result> {
     return new Promise<Result>((resolve, reject) => {
       promptjs.start();
-      promptjs.get(this._schema, (error, result) => {
+      promptjs.get(schema, (error, result) => {
         if (error)
           reject(error);
         else

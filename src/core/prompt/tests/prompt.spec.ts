@@ -38,25 +38,25 @@ describe('NestCliPrompt', () => {
   });
 
   let prompt: Prompt;
-  beforeEach(() => prompt = new NestCliPrompt(schema));
+  beforeEach(() => prompt = new NestCliPrompt());
 
   describe('#start()', () => {
     it('should call prompt start()', () => {
-      return prompt.start()
+      return prompt.start(schema)
         .then(() => {
           sinon.assert.calledOnce(startStub);
         });
     });
 
     it('should call prompt get with the schema', () => {
-      return prompt.start()
+      return prompt.start(schema)
         .then(() => {
           sinon.assert.calledOnce(getStub);
         });
     });
 
     it('should return the prompt result', () => {
-      return prompt.start()
+      return prompt.start(schema)
         .then(promptResult => {
           expect(promptResult).to.be.deep.equal(result);
         });
@@ -64,7 +64,7 @@ describe('NestCliPrompt', () => {
 
     it('should return an error', () => {
       getStub.callsFake((schema, callback) => callback(new Error('error message'), null));
-      return prompt.start()
+      return prompt.start(schema)
         .then(() => {
           throw new Error('should not be here');
         })

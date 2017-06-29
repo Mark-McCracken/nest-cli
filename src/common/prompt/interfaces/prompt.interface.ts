@@ -1,5 +1,6 @@
 import {Result} from './result.interface';
+import {Schema} from './schema.interface';
 
 export interface Prompt {
-  start(): Promise<Result>
+  start(schema: Schema): Promise<Result>
 }

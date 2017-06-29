@@ -6,6 +6,7 @@ import * as sinon from 'sinon';
 import {GitRepository} from '../../repositories/git.repository';
 import {LoggerService} from '../../../logger/logger.service';
 import {FileSystemUtils} from '../../../utils/file-system.utils';
+import {NestCliPrompt} from '../../../prompt/nest-cli.prompt';
 
 describe('CreateProjectProcessor', () => {
   const project: Project = {
@@ -24,8 +25,10 @@ describe('CreateProjectProcessor', () => {
   afterEach(() => sandbox.restore());
 
   let cloneStub: sinon.SinonStub;
+  let startStub: sinon.SinonStub;
   beforeEach(() => {
-    cloneStub = sandbox.stub(GitRepository.prototype, 'clone');
+    cloneStub = sandbox.stub(GitRepository.prototype, 'clone').callsFake(() => Promise.resolve());
+    startStub = sandbox.stub(NestCliPrompt.prototype, 'start').callsFake(() => Promise.resolve());
     sandbox.stub(LoggerService, 'getLogger').callsFake(() => {
       return {
         info: () => {},
@@ -39,8 +42,14 @@ describe('CreateProjectProcessor', () => {
   beforeEach(() => processor = new CreateProjectProcessor(project));
 
   describe('#process()', () => {
+    it('should use the prompt to configure the project', () => {
+      return processor.process()
+        .then(() => {
+          sinon.assert.calledOnce(startStub);
+        });
+    });
+
     it('should clone the source project into the name project', () => {
-      cloneStub.callsFake(() => Promise.resolve());
       return processor.process()
         .then(() => {
           sinon.assert.calledOnce(cloneStub);
