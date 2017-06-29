@@ -4,7 +4,7 @@ import {BufferedReadable, BufferedWritable} from './test.utils';
 import {expect} from 'chai';
 import {MetadataTransform} from '../metadata.transform';
 
-describe('MetadataTransformV2', () => {
+describe('MetadataTransform', () => {
   let reader: Readable;
   let writer: Writable;
 

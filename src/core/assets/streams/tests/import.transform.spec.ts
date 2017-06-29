@@ -3,7 +3,7 @@ import {BufferedReadable, BufferedWritable} from './test.utils';
 import {expect} from 'chai';
 import {ImportTransform} from '../import.transform';
 
-describe('ImportTransformV2', () => {
+describe('ImportTransform', () => {
   const content: string = '' +
     'import {Module} from \'@nestjs/common\';\n' +
     '\n' +
