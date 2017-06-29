@@ -1,4 +1,4 @@
-import {Processor} from '../../../common/asset/interfaces/processor.interface';
+import {Processor} from '../../../common/processor/interfaces/processor.interface';
 import {Project} from '../../../common/project/interfaces/project.interface';
 import {GitRepository} from '../repositories/git.repository';
 import {Logger} from '../../../common/logger/interfaces/logger.interface';

@@ -1,4 +1,4 @@
-import {Processor} from '../../../../common/asset/interfaces/processor.interface';
+import {Processor} from '../../../../common/processor/interfaces/processor.interface';
 import {CreateProjectProcessor} from '../create-project.processor';
 import {Project} from '../../../../common/project/interfaces/project.interface';
 import {SourceType} from '../../../../common/project/enums/source.type.enum';

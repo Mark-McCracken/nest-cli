@@ -1,4 +1,4 @@
-import {Processor} from '../../../../common/asset/interfaces/processor.interface';
+import {Processor} from '../../../../common/processor/interfaces/processor.interface';
 import {ModuleProcessor} from '../module.processor';
 import {AssetGenerator} from '../../generators/asset.generator';
 import * as sinon from 'sinon';

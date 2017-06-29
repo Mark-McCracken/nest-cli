@@ -1,4 +1,4 @@
-import {Processor} from '../../../common/asset/interfaces/processor.interface';
+import {Processor} from '../../../common/processor/interfaces/processor.interface';
 import {Generator} from '../../../common/asset/interfaces/generator.interface';
 import {Asset} from '../../../common/asset/interfaces/asset.interface';
 import {AssetGenerator} from '../generators/asset.generator';

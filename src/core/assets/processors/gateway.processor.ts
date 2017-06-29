@@ -1,4 +1,4 @@
-import {Processor} from '../../../common/asset/interfaces/processor.interface';
+import {Processor} from '../../../common/processor/interfaces/processor.interface';
 import {ModuleFinder} from '../../../common/asset/interfaces/module.finder.interface';
 import {ModuleUpdater} from '../../../common/asset/interfaces/module.updater.interface';
 import {Generator} from '../../../common/asset/interfaces/generator.interface';

@@ -1,4 +1,4 @@
-import {Processor} from '../../../common/asset/interfaces/processor.interface';
+import {Processor} from '../../../common/processor/interfaces/processor.interface';
 import {ModuleFinderImpl} from '../module-finders/module.finder';
 import {ModuleFinder} from '../../../common/asset/interfaces/module.finder.interface';
 import {AssetGenerator} from '../generators/asset.generator';

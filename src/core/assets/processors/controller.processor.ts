@@ -1,4 +1,4 @@
-import {Processor} from '../../../common/asset/interfaces/processor.interface';
+import {Processor} from '../../../common/processor/interfaces/processor.interface';
 import * as path from 'path';
 import {TemplateBuilder} from '../builders/template.builder';
 import {AssetEnum} from '../../../common/asset/enums/asset.enum';
