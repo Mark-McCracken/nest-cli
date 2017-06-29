@@ -50,13 +50,14 @@ describe('CreateProjectProcessor', () => {
               description: {
                 message: 'description',
                 type: 'string',
-                required: false,
+                required: false
               },
               version: {
                 message: 'version',
                 type: 'string',
-                pattern: /[v0-9.]/,
+                pattern: /[0-9.]/,
                 required: true,
+                default: '1.0.0'
               }
             }
           });

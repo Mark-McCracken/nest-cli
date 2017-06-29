@@ -109,5 +109,21 @@ describe('PropertyBuilder', () => {
         required: true
       });
     });
+
+    it('should build a property with a default value', () => {
+      expect(
+        builder
+          .addMessage('message')
+          .addType(PropertyType.STRING)
+          .addRequired(true)
+          .addDefault('default')
+          .build()
+      ).to.be.deep.equal({
+        message: 'message',
+        type: 'string',
+        required: true,
+        default: 'default'
+      });
+    });
   });
 });

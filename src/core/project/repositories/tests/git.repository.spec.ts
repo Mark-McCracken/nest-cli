@@ -1,5 +1,4 @@
 import * as sinon from 'sinon';
-import {expect} from 'chai';
 import * as path from 'path';
 import {Repository} from '../../../../common/project/interfaces/repository.interface';
 import {GitRepository} from '../git.repository';

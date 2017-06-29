@@ -16,6 +16,7 @@ export class PropertyBuilder {
 
   private _pattern: RegExp;
   private _hidden: boolean;
+  private _default: string;
 
   public addMessage(message: string): PropertyBuilder {
     this._message = message;
@@ -47,6 +48,7 @@ export class PropertyBuilder {
   }
 
   public addDefault(defaultValue: string): PropertyBuilder {
+    this._default = defaultValue;
     return this;
   }
 
@@ -60,6 +62,8 @@ export class PropertyBuilder {
       type: this.PROPERTY_TYPE_MAP.get(this._type),
       required: this._required
     };
+    if (!isNullOrUndefined(this._default))
+      property.default = this._default;
     if (!isNullOrUndefined(this._hidden))
       property.hidden = this._hidden;
     if (!isNullOrUndefined(this._pattern))
