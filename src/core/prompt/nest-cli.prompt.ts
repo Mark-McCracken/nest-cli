@@ -2,7 +2,6 @@ import {Prompt} from '../../common/prompt/interfaces/prompt.interface';
 import {Schema} from '../../common/prompt/interfaces/schema.interface';
 import * as promptjs from 'prompt';
 import {Result} from '../../common/prompt/interfaces/result.interface';
-import {ColorService} from '../logger/color.service';
 
 export class NestCliPrompt implements Prompt {
 

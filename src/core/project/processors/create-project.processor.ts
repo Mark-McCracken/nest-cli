@@ -13,6 +13,8 @@ import {Schema} from '../../../common/prompt/interfaces/schema.interface';
 import {SchemaBuilder} from '../../prompt/builders/schema.builder';
 import {PropertyBuilder} from '../../prompt/builders/property.builder';
 import {PropertyType} from '../../../common/prompt/enums/property-type.enum';
+import {CommandArguments} from '../../../common/program/interfaces/command.aguments.interface';
+import {CommandOptions} from '../../../common/program/interfaces/command.options.interface';
 
 export class CreateProjectProcessor implements Processor {
   private _logger: Logger = LoggerService.getLogger();
@@ -22,6 +24,10 @@ export class CreateProjectProcessor implements Processor {
   constructor(private _project: Project) {
     this._prompt = new NestCliPrompt();
     this._repository = new GitRepository(this._project.source.value, this._project.destination.path);
+  }
+
+  public processV2(args: CommandArguments, options: CommandOptions): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 
   public process(): Promise<void> {
