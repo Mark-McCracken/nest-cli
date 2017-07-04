@@ -27,7 +27,7 @@ export class CreateProjectProcessor implements Processor {
   }
 
   public processV2(args: CommandArguments, options: CommandOptions): Promise<void> {
-    throw new Error("Method not implemented.");
+    return Promise.resolve();
   }
 
   public process(): Promise<void> {

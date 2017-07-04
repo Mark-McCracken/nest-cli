@@ -7,6 +7,9 @@ import {GitRepository} from '../../repositories/git.repository';
 import {LoggerService} from '../../../logger/logger.service';
 import {FileSystemUtils} from '../../../utils/file-system.utils';
 import {NestCliPrompt} from '../../../prompt/nest-cli.prompt';
+import {expect} from 'chai';
+import {CreateCommandArguments} from '../../../../common/program/interfaces/command.aguments.interface';
+import {CreateCommandOptions} from '../../../../common/program/interfaces/command.options.interface';
 
 describe('CreateProjectProcessor', () => {
   let sandbox: sinon.SinonSandbox;
@@ -68,6 +71,22 @@ describe('CreateProjectProcessor', () => {
       return processor.process()
         .then(() => {
           sinon.assert.calledOnce(cloneStub);
+        });
+    });
+  });
+
+  describe('processV2()', () => {
+    it('can be called', () => {
+      const args: CreateCommandArguments = {
+        name: 'string',
+        destination: 'string'
+      };
+      const options: CreateCommandOptions = {
+        repository: 'string'
+      };
+      return processor.processV2(args, options)
+        .then(() => {
+          expect(true).to.be.true;
         });
     });
   });
