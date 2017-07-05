@@ -44,4 +44,27 @@ describe('GitRepository', () => {
         });
     });
   });
+
+  describe('#cloneV2()', () => {
+    it('should clone the git remote repository to destination', () => {
+      return repository.cloneV2('remote', 'destination')
+        .then(() => {
+          sinon.assert.calledWith(cloneStub, 'remote', 'destination');
+        });
+    });
+
+    it('should remove the .git folder from destination', () => {
+      return repository.cloneV2('remote', 'destination')
+        .then(() => {
+          sinon.assert.calledWith(rmdirStub, path.join('destination', '.git'));
+        });
+    });
+
+    it('should remove the .gitignore file from destination', () => {
+      return repository.cloneV2('remote', 'destination')
+        .then(() => {
+          sinon.assert.calledWith(rmStub, path.join('destination', '.gitignore'));
+        });
+    });
+  });
 });

@@ -22,4 +22,16 @@ export class GitRepository implements Repository {
       .then(() => FileSystemUtils.rm(path.join(this._destination, '.gitignore')))
       .then(() => this._logger.debug(`${ ColorService.blue('[DEBUG] delete') } success`));
   }
+
+  public cloneV2(origin: string, destination: string): Promise<void> {
+    this._logger.debug(`${ ColorService.blue('[DEBUG] clone') } ${ origin } git repository to ${ destination }...`);
+    return GitUtils.clone(origin, destination)
+      .then(() => this._logger.debug(`${ ColorService.blue('[DEBUG] clone') } success`))
+      .then(() => this._logger.debug(`${ ColorService.blue('[DEBUG] delete') } ${ path.join(destination, '.git') } folder...`))
+      .then(() => FileSystemUtils.rmdir(path.join(destination, '.git')))
+      .then(() => this._logger.debug(`${ ColorService.blue('[DEBUG] delete') } success`))
+      .then(() => this._logger.debug(`${ ColorService.blue('[DEBUG] delete') } ${ path.join(destination, '.gitignore') } file...`))
+      .then(() => FileSystemUtils.rm(path.join(destination, '.gitignore')))
+      .then(() => this._logger.debug(`${ ColorService.blue('[DEBUG] delete') } success`));
+  }
 }

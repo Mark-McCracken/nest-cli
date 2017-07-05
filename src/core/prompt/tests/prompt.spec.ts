@@ -10,7 +10,8 @@ describe('NestCliPrompt', () => {
   const schema: Schema = {
     properties: {
       name: {
-        message: 'message',
+        description: 'name',
+        message: 'invalid name',
         type: 'string',
         required: false
       }

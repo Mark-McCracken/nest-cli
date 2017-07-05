@@ -7,7 +7,6 @@ import {GitRepository} from '../../repositories/git.repository';
 import {LoggerService} from '../../../logger/logger.service';
 import {FileSystemUtils} from '../../../utils/file-system.utils';
 import {NestCliPrompt} from '../../../prompt/nest-cli.prompt';
-import {expect} from 'chai';
 import {CreateCommandArguments} from '../../../../common/program/interfaces/command.aguments.interface';
 import {CreateCommandOptions} from '../../../../common/program/interfaces/command.options.interface';
 
@@ -51,12 +50,14 @@ describe('CreateProjectProcessor', () => {
           sinon.assert.calledWith(startStub, {
             properties: {
               description: {
-                message: 'description',
+                description: 'description',
+                message: 'invalid description',
                 type: 'string',
                 required: false
               },
               version: {
-                message: 'version',
+                description: 'version',
+                message: 'invalid version',
                 type: 'string',
                 pattern: /[0-9.]/,
                 required: true,
@@ -76,7 +77,7 @@ describe('CreateProjectProcessor', () => {
   });
 
   describe('processV2()', () => {
-    it('can be called', () => {
+    it('should clone the repository', () => {
       const args: CreateCommandArguments = {
         name: 'string',
         destination: 'string'
@@ -86,7 +87,7 @@ describe('CreateProjectProcessor', () => {
       };
       return processor.processV2(args, options)
         .then(() => {
-          expect(true).to.be.true;
+          sinon.assert.calledOnce(cloneStub);
         });
     });
   });

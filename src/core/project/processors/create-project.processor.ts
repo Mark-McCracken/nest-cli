@@ -13,8 +13,9 @@ import {Schema} from '../../../common/prompt/interfaces/schema.interface';
 import {SchemaBuilder} from '../../prompt/builders/schema.builder';
 import {PropertyBuilder} from '../../prompt/builders/property.builder';
 import {PropertyType} from '../../../common/prompt/enums/property-type.enum';
-import {CommandArguments} from '../../../common/program/interfaces/command.aguments.interface';
-import {CommandOptions} from '../../../common/program/interfaces/command.options.interface';
+import {CreateCommandArguments} from '../../../common/program/interfaces/command.aguments.interface';
+import {CreateCommandOptions} from '../../../common/program/interfaces/command.options.interface';
+import {Deprecated} from '../../../common/decorators/deprecate.decorator';
 
 export class CreateProjectProcessor implements Processor {
   private _logger: Logger = LoggerService.getLogger();
@@ -26,10 +27,14 @@ export class CreateProjectProcessor implements Processor {
     this._repository = new GitRepository(this._project.source.value, this._project.destination.path);
   }
 
-  public processV2(args: CommandArguments, options: CommandOptions): Promise<void> {
-    return Promise.resolve();
+  public processV2(args: CreateCommandArguments, options: CreateCommandOptions): Promise<void> {
+    return this._repository
+      .clone()
+      .then(() => FileSystemUtils.readdir(path.join(process.cwd(), this._project.destination.path)))
+      .then(files => files.forEach(file => this._logger.info(ColorService.green('create'), file)));
   }
 
+  @Deprecated(CreateProjectProcessor.name)
   public process(): Promise<void> {
     return this._prompt.start(this.buildSchema())
       .then(() => this._repository.clone())
@@ -41,14 +46,16 @@ export class CreateProjectProcessor implements Processor {
     return new SchemaBuilder()
       .addProperty('description',
         new PropertyBuilder()
-          .addMessage('description')
+          .addDescription('description')
+          .addErrorMessage('invalid description')
           .addType(PropertyType.STRING)
           .addRequired(false)
           .build()
       )
       .addProperty('version',
         new PropertyBuilder()
-          .addMessage('version')
+          .addDescription('version')
+          .addErrorMessage('invalid version')
           .addType(PropertyType.STRING)
           .addPattern(/[0-9.]/)
           .addDefault('1.0.0')

@@ -6,9 +6,9 @@ describe('PropertyBuilder', () => {
   let builder: PropertyBuilder;
   beforeEach(() => builder = new PropertyBuilder());
 
-  describe('#addMessage()', () => {
+  describe('#addErrorMessage()', () => {
     it('should return the builder instance', () => {
-      expect(builder.addMessage('message')).to.be.equal(builder);
+      expect(builder.addErrorMessage('errorMessage')).to.be.equal(builder);
     });
   });
 
@@ -58,11 +58,13 @@ describe('PropertyBuilder', () => {
     it('should build the minimum property attributes with message and type', () => {
       expect(
         builder
-          .addMessage('message')
+          .addDescription('description')
+          .addErrorMessage('errorMessage')
           .addType(PropertyType.STRING)
           .build()
       ).to.be.deep.equal({
-        message: 'message',
+        description: 'description',
+        message: 'errorMessage',
         type: 'string',
         required: false
       });
@@ -71,11 +73,13 @@ describe('PropertyBuilder', () => {
     it('should build the minimum property attributes with type different to string', () => {
       expect(
         builder
-          .addMessage('message')
+          .addDescription('description')
+          .addErrorMessage('errorMessage')
           .addType(PropertyType.BOOLEAN)
           .build()
       ).to.be.deep.equal({
-        message: 'message',
+        description: 'description',
+        message: 'errorMessage',
         type: 'boolean',
         required: false
       });
@@ -84,12 +88,14 @@ describe('PropertyBuilder', () => {
     it('should build a property with a pattern', () => {
       expect(
         builder
-          .addMessage('message')
+          .addDescription('description')
+          .addErrorMessage('errorMessage')
           .addType(PropertyType.STRING)
           .addPattern(/pattern/)
           .build()
       ).to.be.deep.equal({
-        message: 'message',
+        description: 'description',
+        message: 'errorMessage',
         type: 'string',
         pattern: /pattern/,
         required: false
@@ -99,12 +105,14 @@ describe('PropertyBuilder', () => {
     it('should build a required property with a pattern', () => {
       expect(
         builder
-          .addMessage('message')
+          .addDescription('description')
+          .addErrorMessage('errorMessage')
           .addType(PropertyType.STRING)
           .addRequired(true)
           .build()
       ).to.be.deep.equal({
-        message: 'message',
+        description: 'description',
+        message: 'errorMessage',
         type: 'string',
         required: true
       });
@@ -113,13 +121,15 @@ describe('PropertyBuilder', () => {
     it('should build a property with a default value', () => {
       expect(
         builder
-          .addMessage('message')
+          .addDescription('description')
+          .addErrorMessage('errorMessage')
           .addType(PropertyType.STRING)
           .addRequired(true)
           .addDefault('default')
           .build()
       ).to.be.deep.equal({
-        message: 'message',
+        description: 'description',
+        message: 'errorMessage',
         type: 'string',
         required: true,
         default: 'default'

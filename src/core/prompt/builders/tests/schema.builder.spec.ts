@@ -8,7 +8,8 @@ describe('SchemaBuilder', () => {
   beforeEach(() => builder = new SchemaBuilder());
 
   const property: Property = {
-    message: 'message',
+    description: 'description',
+    message: 'errorMessage',
     type: 'string',
     required: false
   };

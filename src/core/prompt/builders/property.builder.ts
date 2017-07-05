@@ -13,12 +13,13 @@ export class PropertyBuilder {
   private _message: string;
   private _type: PropertyType;
   private _required: boolean = false;
+  private _description: string;
 
   private _pattern: RegExp;
   private _hidden: boolean;
   private _default: string;
 
-  public addMessage(message: string): PropertyBuilder {
+  public addErrorMessage(message: string): PropertyBuilder {
     this._message = message;
     return this;
   }
@@ -39,6 +40,7 @@ export class PropertyBuilder {
   }
 
   public addDescription(description: string): PropertyBuilder {
+    this._description = description;
     return this;
   }
 
@@ -58,6 +60,7 @@ export class PropertyBuilder {
 
   public build(): Property {
     const property: Property = {
+      description: this._description,
       message: this._message,
       type: this.PROPERTY_TYPE_MAP.get(this._type),
       required: this._required
