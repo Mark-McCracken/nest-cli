@@ -14,6 +14,7 @@ import * as path from 'path';
 import {TemplateBuilder} from '../builders/template.builder';
 import {CommandArguments} from '../../../common/program/interfaces/command.aguments.interface';
 import {CommandOptions} from '../../../common/program/interfaces/command.options.interface';
+import {Deprecated} from '../../../common/decorators/deprecate.decorator';
 
 export class GatewayProcessor implements Processor {
   private _finder: ModuleFinder;
@@ -34,6 +35,7 @@ export class GatewayProcessor implements Processor {
     throw new Error("Method not implemented.");
   }
 
+  @Deprecated(GatewayProcessor.name)
   public process(): Promise<void> {
     return this._finder.find(this._moduleName)
       .then(moduleFilename => {

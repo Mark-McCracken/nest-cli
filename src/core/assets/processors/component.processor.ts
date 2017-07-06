@@ -14,6 +14,7 @@ import {ModuleFinderImpl} from '../module-finders/module.finder';
 import {ModuleFinder} from '../../../common/asset/interfaces/module.finder.interface';
 import {CommandArguments} from '../../../common/program/interfaces/command.aguments.interface';
 import {CommandOptions} from '../../../common/program/interfaces/command.options.interface';
+import {Deprecated} from '../../../common/decorators/deprecate.decorator';
 
 export class ComponentProcessor implements Processor{
   private _finder: ModuleFinder;
@@ -34,6 +35,7 @@ export class ComponentProcessor implements Processor{
     throw new Error("Method not implemented.");
   }
 
+  @Deprecated(ComponentProcessor.name)
   public process(): Promise<void> {
     return this._finder.find(this._moduleName)
       .then(moduleFilename => {
