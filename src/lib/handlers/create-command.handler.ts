@@ -1,6 +1,7 @@
 import {CommandHandler} from '../../common/program/interfaces/command.handler.interface';
 import {FileSystemUtils} from '../../core/utils/file-system.utils';
 import * as path from 'path';
+import * as ChildProcess from 'child_process';
 import {ColorService} from '../../core/logger/color.service';
 import {Logger} from '../../common/logger/interfaces/logger.interface';
 import {GitRepository} from '../../core/project/repositories/git.repository';
@@ -23,5 +24,9 @@ export class CreateCommandHandler implements CommandHandler {
       .clone()
         .then(() => FileSystemUtils.readdir(path.join(process.cwd(), destination)))
         .then(files => files.forEach(file => logger.info(ColorService.green('create'), file)))
+        .then(_ => {
+            logger.info(ColorService.green('Installing packages...'));
+            ChildProcess.exec(`cd ${path.join(process.cwd(), destination)} && npm install`);
+        })
   }
 }
